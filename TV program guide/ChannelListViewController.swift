@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ChannelListViewController.swift
 //  TV program guide
 //
 //  Created by Александр on 18.01.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ChannelListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

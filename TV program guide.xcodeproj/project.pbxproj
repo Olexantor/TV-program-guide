@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F5789F8279C4C340037DEDB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5789F7279C4C340037DEDB /* NetworkManager.swift */; };
+		1F5789FA279C62B00037DEDB /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5789F9279C62B00037DEDB /* ImageManager.swift */; };
 		1FC483DF279AB6EF00EE21B1 /* TVProgramModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC483DE279AB6EF00EE21B1 /* TVProgramModel.swift */; };
 		1FCB577B27972F8C009FFDE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB577A27972F8C009FFDE8 /* AppDelegate.swift */; };
 		1FCB577F27972F8C009FFDE8 /* ChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB577E27972F8C009FFDE8 /* ChannelListViewController.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F5789F7279C4C340037DEDB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		1F5789F9279C62B00037DEDB /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		1FC483DE279AB6EF00EE21B1 /* TVProgramModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVProgramModel.swift; sourceTree = "<group>"; };
 		1FCB577727972F8C009FFDE8 /* TV program guide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TV program guide.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCB577A27972F8C009FFDE8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,10 +50,35 @@
 		1F5789F2279C46060037DEDB /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
-				1FCB577A27972F8C009FFDE8 /* AppDelegate.swift */,
 				1FCB578827972F90009FFDE8 /* Info.plist */,
+				1FCB577A27972F8C009FFDE8 /* AppDelegate.swift */,
 			);
 			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		1F5789F3279C4ABC0037DEDB /* ChannelList */ = {
+			isa = PBXGroup;
+			children = (
+				1FCB577E27972F8C009FFDE8 /* ChannelListViewController.swift */,
+			);
+			path = ChannelList;
+			sourceTree = "<group>";
+		};
+		1F5789F4279C4B130037DEDB /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1FCB578527972F90009FFDE8 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		1F5789F6279C4B430037DEDB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1F5789F7279C4C340037DEDB /* NetworkManager.swift */,
+				1F5789F9279C62B00037DEDB /* ImageManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		1FC483DD279AB6C700EE21B1 /* Models */ = {
@@ -79,11 +108,12 @@
 		1FCB577927972F8C009FFDE8 /* TV program guide */ = {
 			isa = PBXGroup;
 			children = (
+				1F5789F6279C4B430037DEDB /* Services */,
 				1F5789F2279C46060037DEDB /* Supporting files */,
 				1FC483DD279AB6C700EE21B1 /* Models */,
-				1FCB577E27972F8C009FFDE8 /* ChannelListViewController.swift */,
+				1F5789F3279C4ABC0037DEDB /* ChannelList */,
 				1F5789F1279C45E10037DEDB /* Resources */,
-				1FCB578527972F90009FFDE8 /* LaunchScreen.storyboard */,
+				1F5789F4279C4B130037DEDB /* Storyboards */,
 			);
 			path = "TV program guide";
 			sourceTree = "<group>";
@@ -158,6 +188,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F5789F8279C4C340037DEDB /* NetworkManager.swift in Sources */,
+				1F5789FA279C62B00037DEDB /* ImageManager.swift in Sources */,
 				1FCB577F27972F8C009FFDE8 /* ChannelListViewController.swift in Sources */,
 				1FC483DF279AB6EF00EE21B1 /* TVProgramModel.swift in Sources */,
 				1FCB577B27972F8C009FFDE8 /* AppDelegate.swift in Sources */,

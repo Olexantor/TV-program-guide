@@ -35,6 +35,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F5789F1279C45E10037DEDB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1FCB578327972F90009FFDE8 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1F5789F2279C46060037DEDB /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				1FCB577A27972F8C009FFDE8 /* AppDelegate.swift */,
+				1FCB578827972F90009FFDE8 /* Info.plist */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
 		1FC483DD279AB6C700EE21B1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -62,12 +79,11 @@
 		1FCB577927972F8C009FFDE8 /* TV program guide */ = {
 			isa = PBXGroup;
 			children = (
-				1FCB577A27972F8C009FFDE8 /* AppDelegate.swift */,
+				1F5789F2279C46060037DEDB /* Supporting files */,
 				1FC483DD279AB6C700EE21B1 /* Models */,
 				1FCB577E27972F8C009FFDE8 /* ChannelListViewController.swift */,
-				1FCB578327972F90009FFDE8 /* Assets.xcassets */,
+				1F5789F1279C45E10037DEDB /* Resources */,
 				1FCB578527972F90009FFDE8 /* LaunchScreen.storyboard */,
-				1FCB578827972F90009FFDE8 /* Info.plist */,
 			);
 			path = "TV program guide";
 			sourceTree = "<group>";
@@ -287,12 +303,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JKCU96H3SQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "TV program guide/Info.plist";
+				INFOPLIST_FILE = "TV program guide/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,12 +332,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JKCU96H3SQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "TV program guide/Info.plist";
+				INFOPLIST_FILE = "TV program guide/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

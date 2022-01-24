@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ImageManger {
-    static let shared = ImageManger()
+class ImageManager {
+    static let shared = ImageManager()
     private init() {}
     
     func fetchImageData(from url: URL?) -> Data? {

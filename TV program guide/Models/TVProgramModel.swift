@@ -15,6 +15,7 @@ struct Channel: Decodable {
     let name: String
     let image: String
     let current: Current?
+    var isFavorite = false
     
     enum CodingKeys: String, CodingKey {
         case name = "name_ru"

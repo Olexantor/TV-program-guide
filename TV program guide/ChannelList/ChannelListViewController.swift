@@ -8,7 +8,8 @@
 import UIKit
 
 class ChannelListViewController: UIViewController {
-    private var listOfChannels: [Channel] = []
+    private var listOfChannels = [Channel]()
+    private var filteredChannels = [Channel]()
     
     private let screenLabel: UILabel = {
         let label = UILabel()
@@ -25,7 +26,11 @@ class ChannelListViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.layer.borderWidth = 0
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(allButtonPressed), for: .touchUpInside)
+        button.addTarget(
+            self,
+            action: #selector(allButtonPressed),
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -34,9 +39,14 @@ class ChannelListViewController: UIViewController {
         button.setTitle("Избранные", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.setTitleColor(.black, for: .normal)
+        button.alpha = 0.5
         button.layer.borderWidth = 0
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
+        button.addTarget(
+            self,
+            action: #selector(favoritesButtonPressed),
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -64,24 +74,12 @@ class ChannelListViewController: UIViewController {
     
     private var isFiltering = false {
         didSet {
-            if leftGreenView.alpha == 1 && rightGreenView.alpha == 0 {
-                UIView.animate(withDuration: 0.1) { [weak self] in
-                    guard let self = self else { return }
-                    self.leftGreenView.alpha = 0
-                    self.rightGreenView.alpha = 1
-                }
-            } else {
-                UIView.animate(withDuration: 0.1) { [weak self] in
-                    guard let self = self else { return }
-                    self.leftGreenView.alpha = 1
-                    self.rightGreenView.alpha = 0
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
             }
         }
     }
-    }
-  
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         getListOfChannels()
@@ -92,68 +90,97 @@ class ChannelListViewController: UIViewController {
         setupLeftGreenView()
         setupRightGreenView()
         setupTableView()
-//        getListOfChannels()
-        NetworkManager.shared.fetchData { response in
-            switch response {
-            case .success(let tvProram):
-                print(tvProram)
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     @objc func allButtonPressed() {
         isFiltering = false
+        UIView.animate(withDuration: 0.1) { [weak self] in
+            guard let self = self else { return }
+            self.leftGreenView.alpha = 1
+            self.allButton.alpha = 1
+            self.rightGreenView.alpha = 0
+            self.favoritesButton.alpha = 0.5
+        }
     }
     
     @objc func favoritesButtonPressed() {
         isFiltering = true
+        UIView.animate(withDuration: 0.1) { [weak self] in
+            guard let self = self else { return }
+            self.leftGreenView.alpha = 0
+            self.allButton.alpha = 0.5
+            self.rightGreenView.alpha = 1
+            self.favoritesButton.alpha = 1
+        }
     }
     
     private func setupScreenLabel() {
         view.addSubview(screenLabel)
         NSLayoutConstraint.activate([
-        screenLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-        screenLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20)
+            screenLabel.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 20
+            ),
+            screenLabel.leftAnchor.constraint(
+                equalTo: view.leftAnchor,
+                constant: 20
+            )
         ])
     }
     
     private func setupAllButton() {
         view.addSubview(allButton)
         NSLayoutConstraint.activate([
-        allButton.topAnchor.constraint(equalTo: screenLabel.bottomAnchor, constant: 20),
-        allButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/5),
-        allButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25)
+            allButton.topAnchor.constraint(
+                equalTo: screenLabel.bottomAnchor,
+                constant: 20
+            ),
+            allButton.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 1/5
+            ),
+            allButton.leftAnchor.constraint(
+                equalTo: view.leftAnchor,
+                constant: 25
+            )
         ])
     }
     
     private func setupFavoritesButton() {
         view.addSubview(favoritesButton)
         NSLayoutConstraint.activate([
-        favoritesButton.topAnchor.constraint(equalTo: screenLabel.bottomAnchor, constant: 20),
-        favoritesButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
-        favoritesButton.leftAnchor.constraint(equalTo: allButton.rightAnchor, constant: 20)
+            favoritesButton.topAnchor.constraint(
+                equalTo: screenLabel.bottomAnchor,
+                constant: 20
+            ),
+            favoritesButton.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 1/3
+            ),
+            favoritesButton.leftAnchor.constraint(
+                equalTo: allButton.rightAnchor,
+                constant: 20
+            )
         ])
     }
     
     private func setupLeftGreenView() {
         view.addSubview(leftGreenView)
         NSLayoutConstraint.activate([
-        leftGreenView.widthAnchor.constraint(equalTo: allButton.widthAnchor),
-        leftGreenView.topAnchor.constraint(equalTo: allButton.bottomAnchor),
-        leftGreenView.leftAnchor.constraint(equalTo: allButton.leftAnchor),
-        leftGreenView.heightAnchor.constraint(equalToConstant: 2)
+            leftGreenView.widthAnchor.constraint(equalTo: allButton.widthAnchor),
+            leftGreenView.topAnchor.constraint(equalTo: allButton.bottomAnchor),
+            leftGreenView.leftAnchor.constraint(equalTo: allButton.leftAnchor),
+            leftGreenView.heightAnchor.constraint(equalToConstant: 2)
         ])
     }
     
     private func setupRightGreenView() {
         view.addSubview(rightGreenView)
         NSLayoutConstraint.activate([
-        rightGreenView.widthAnchor.constraint(equalTo: favoritesButton.widthAnchor),
-        rightGreenView.topAnchor.constraint(equalTo: favoritesButton.bottomAnchor),
-        rightGreenView.leftAnchor.constraint(equalTo: favoritesButton.leftAnchor),
-        rightGreenView.heightAnchor.constraint(equalToConstant: 2)
+            rightGreenView.widthAnchor.constraint(equalTo: favoritesButton.widthAnchor),
+            rightGreenView.topAnchor.constraint(equalTo: favoritesButton.bottomAnchor),
+            rightGreenView.leftAnchor.constraint(equalTo: favoritesButton.leftAnchor),
+            rightGreenView.heightAnchor.constraint(equalToConstant: 2)
         ])
     }
     
@@ -166,10 +193,13 @@ class ChannelListViewController: UIViewController {
         )
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-        tableView.topAnchor.constraint(equalTo: leftGreenView.bottomAnchor, constant: 6),
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor)
+            tableView.topAnchor.constraint(
+                equalTo: leftGreenView.bottomAnchor,
+                constant: 6
+            ),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor)
         ])
         self.tableView.separatorStyle = .none
     }
@@ -198,8 +228,11 @@ extension ChannelListViewController {
 // MARK: - TableViewDataSource
 
 extension ChannelListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        listOfChannels.count
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        !isFiltering ? listOfChannels.count : filteredChannels.count
     }
     
     func tableView(
@@ -213,18 +246,70 @@ extension ChannelListViewController: UITableViewDataSource {
 // MARK: - TableViewDelegate
 
 extension ChannelListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "ChannelCell",
             for: indexPath
         ) as! ChannelTableViewCell
-        cell.channelLabel.text = listOfChannels[indexPath.row].name
-        cell.broadcastLabel.text = listOfChannels[indexPath.row].current?.title
-        if let imageData = ImageManager.shared.fetchImageData(from: URL(string:listOfChannels[indexPath.row].image)) {
-            cell.channelImageView.image = UIImage(data: imageData)
-            cell.channelImageView.layer.cornerRadius = ( cell.channelImageView.frame.width / 2 )
+        switch isFiltering {
+        case true:
+            listOfChannels.forEach { channel in
+                if channel.isFavorite == true {
+                    filteredChannels.append(channel)
+                }
+            }
+            guard !filteredChannels.isEmpty else { return cell }
+            cell.channelLabel.text = filteredChannels[indexPath.row].name
+            cell.broadcastLabel.text = filteredChannels[indexPath.row].current?.title
+            
+            if !filteredChannels[indexPath.row].isFavorite {
+                cell.favoriteButton.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+            } else {
+                cell.favoriteButton.tintColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+            }
+            if let imageData = ImageManager.shared.fetchImageData(
+                from: URL(string:filteredChannels[indexPath.row].image)
+            ) {
+                cell.channelImageView.image = UIImage(data: imageData)
+            }
+        case false:
+            cell.channelLabel.text = listOfChannels[indexPath.row].name
+            cell.broadcastLabel.text = listOfChannels[indexPath.row].current?.title
+            if !listOfChannels[indexPath.row].isFavorite {
+                cell.favoriteButton.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+            } else {
+                cell.favoriteButton.tintColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+            }
+            if let imageData = ImageManager.shared.fetchImageData(
+                from: URL(string:listOfChannels[indexPath.row].image)
+            ) {
+                cell.channelImageView.image = UIImage(data: imageData)
+            }
         }
-//        cell.favoriteButton.setImage(UIImage(named: cell.isFavorite ? "star.fill" : "star"), for: .normal)
         return cell
     }
+    
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        switch isFiltering {
+        case true:
+            guard !filteredChannels.isEmpty else { return }
+            filteredChannels[indexPath.row].isFavorite.toggle()
+            DispatchQueue.main.async {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        case false:
+            listOfChannels[indexPath.row].isFavorite.toggle()
+            DispatchQueue.main.async {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
+        tableView.deselectRow(at: [indexPath.row], animated: true)
+    }
 }
+
